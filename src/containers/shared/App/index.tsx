@@ -17,6 +17,7 @@ const history = syncHistoryWithStore(hashHistory, store.routerStore)
 const loadableOptions = { fallback: <PageLoading /> }
 const Home = loadable(() => import(/* webpackChunkName: "home" */ '@views/Home'), loadableOptions)
 const Login = loadable(() => import(/* webpackChunkName: "login" */ '@views/Login'), loadableOptions)
+const Test = loadable(() => import(/* webpackChunkName: "login" */ '@views/Test'), loadableOptions)
 
 const AppWrapper: React.FC = ({ children }) => <div className={styles.appWrapper}>{children}</div>
 
@@ -30,6 +31,7 @@ function App() {
                             <Switch>
                                 <Route exact path="/login" component={Login} />
                                 <Route path="/" component={Home} />
+                                <Route path="/test" component={Test} />
                                 <Route component={Error} />
                             </Switch>
                         </HashRouter>

@@ -1,13 +1,14 @@
 import React from 'react'
 import Loadable from '@loadable/component'
-import { UserOutlined } from '@ant-design/icons'
+import { UserOutlined, TeamOutlined } from '@ant-design/icons'
 
 import PageLoading from '@components/PageLoading'
 
 const loadComponent = (loader: () => Promise<any>) => Loadable(loader, { fallback: <PageLoading /> })
 
 export const asynchronousComponents = {
-    Users: loadComponent(() => import(/* webpackChunkName: "users" */ '@views/Users'))
+    Users: loadComponent(() => import(/* webpackChunkName: "users" */ '@views/Users')),
+    Test: loadComponent(() => import(/* webpackChunkName: "users" */ '@views/Test'))
 }
 
 // all routers key
@@ -28,6 +29,14 @@ export interface IMenuInTree extends IMenu {
 }
 
 export const menu: IMenu[] = [
+    {
+        id: 1,
+        path: '/test',
+        title: '测试',
+        icon: <TeamOutlined />,
+        component: 'Test',
+        exact: true
+    },
     {
         id: 2,
         path: '/users',
