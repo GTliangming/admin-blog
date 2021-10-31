@@ -1,45 +1,45 @@
-import React, { useState } from 'react'
-import intl from 'react-intl-universal'
-import { find } from 'lodash'
-import { Select, ConfigProvider } from 'antd'
-import { Locale } from 'antd/lib/locale-provider'
+import React, { useState } from "react";
+import intl from "react-intl-universal";
+import { find } from "lodash";
+import { Select, ConfigProvider } from "antd";
+import { Locale } from "antd/lib/locale-provider";
 
-import styles from './index.scss'
-import { useOnMount } from '@utils/hooks'
-import { setCookie } from '@utils/index'
-import { COOKIE_KEYS } from '@constants/index'
-import PageLoading from '@components/PageLoading'
-import { SUPPOER_LOCALES, LOCALES_KEYS, getLocaleLoader } from '@locales/loader'
+import styles from "./index.scss";
+import { useOnMount } from "@utils/hooks";
+import { setCookie } from "@utils/index";
+import { COOKIE_KEYS } from "@constants/index";
+import PageLoading from "@components/PageLoading";
+import { SUPPOER_LOCALES, LOCALES_KEYS, getLocaleLoader } from "@locales/loader";
 
 interface IProps {}
 
 const IntlWrapper: React.FC<IProps> = ({ children }) => {
-    const [currentLocale, setCurrentLocale] = useState('')
-    const [antdLocaleData, setAntdLocaleData] = useState<Locale>(null)
+    const [currentLocale, setCurrentLocale] = useState("");
+    const [antdLocaleData, setAntdLocaleData] = useState<Locale>(null);
 
     function loadLocales() {
-        let targetLocale = intl.determineLocale({ cookieLocaleKey: COOKIE_KEYS.LANG }) as LOCALES_KEYS
+        let targetLocale = intl.determineLocale({ cookieLocaleKey: COOKIE_KEYS.LANG }) as LOCALES_KEYS;
         // default is English
         if (!find(SUPPOER_LOCALES, { value: targetLocale })) {
-            targetLocale = LOCALES_KEYS.EN_US
+            targetLocale = LOCALES_KEYS.EN_US;
         }
         getLocaleLoader(targetLocale).then(res => {
             intl.init({ currentLocale: targetLocale, locales: { [targetLocale]: res.localeData } }).then(() => {
-                setCurrentLocale(targetLocale)
-                setAntdLocaleData(res.antdLocaleData)
-            })
-        })
+                setCurrentLocale(targetLocale);
+                setAntdLocaleData(res.antdLocaleData);
+            });
+        });
     }
 
     function onSelectLocale(val: string) {
-        setCookie(COOKIE_KEYS.LANG, val)
-        location.reload()
+        setCookie(COOKIE_KEYS.LANG, val);
+        location.reload();
     }
 
-    useOnMount(loadLocales)
+    useOnMount(loadLocales);
 
     if (!currentLocale) {
-        return <PageLoading />
+        return <PageLoading />;
     }
     const selectLanguage = (
         <Select className={styles.intlSelect} onChange={onSelectLocale} value={currentLocale}>
@@ -49,7 +49,7 @@ const IntlWrapper: React.FC<IProps> = ({ children }) => {
                 </Select.Option>
             ))}
         </Select>
-    )
+    );
     return (
         <ConfigProvider locale={antdLocaleData}>
             <React.Fragment>
@@ -57,7 +57,7 @@ const IntlWrapper: React.FC<IProps> = ({ children }) => {
                 {children}
             </React.Fragment>
         </ConfigProvider>
-    )
-}
+    );
+};
 
-export default IntlWrapper
+export default IntlWrapper;

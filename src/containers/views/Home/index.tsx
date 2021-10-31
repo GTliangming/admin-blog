@@ -1,12 +1,12 @@
-import React from 'react'
-import { Layout } from 'antd'
-import { HashRouter as Router, Switch, Route } from 'react-router-dom'
+import React from "react";
+import { Layout } from "antd";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
-import styles from './index.scss'
-import Error from '@components/Error'
-import menu, { asynchronousComponents } from './menu'
-import Header from './Header'
-import Sider from './Sider'
+import styles from "./index.scss";
+import Error from "@components/Error";
+import menu, { asynchronousComponents } from "./menu";
+import Header from "./Header";
+import Sider from "./Sider";
 
 function Home() {
     return (
@@ -19,7 +19,7 @@ function Home() {
                         <Switch>
                             {menu.map(m => {
                                 if (!m.path) {
-                                    return null
+                                    return null;
                                 }
                                 return (
                                     <Route
@@ -28,7 +28,7 @@ function Home() {
                                         path={m.path}
                                         component={m.component ? asynchronousComponents[m.component] : null}
                                     />
-                                )
+                                );
                             })}
                             <Route component={Error} />
                         </Switch>
@@ -36,7 +36,7 @@ function Home() {
                 </Layout.Content>
             </Layout>
         </Layout>
-    )
+    );
 }
 
-export default Home
+export default Home;

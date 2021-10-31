@@ -1,11 +1,11 @@
-import { makeAutoObservable, action, reaction } from 'mobx'
-import { isPlainObject } from 'lodash'
+import { makeAutoObservable, action, reaction } from "mobx";
+import { isPlainObject } from "lodash";
 
-import { routerStore } from './../'
-import { initialUserInfo, syncUserInfo } from './syncUserInfo'
-import { LOCALSTORAGE_KEYS } from '@constants/index'
-import request from '@utils/request'
-import { message } from 'antd'
+import { routerStore } from "./../";
+import { initialUserInfo, syncUserInfo } from "./syncUserInfo";
+import { LOCALSTORAGE_KEYS } from "@constants/index";
+import request from "@utils/request";
+import { message } from "antd";
 
 export class AuthStore {
     /**
@@ -17,25 +17,25 @@ export class AuthStore {
     userInfo: IAuthStore.UserInfo = initialUserInfo
 
     constructor() {
-        makeAutoObservable(this)
-        reaction(() => this.userInfo, syncUserInfo)
+        makeAutoObservable(this);
+        reaction(() => this.userInfo, syncUserInfo);
     }
 
     @action
     login = async (params: IAuthStore.LoginParams) => {
-        const result = await request.post<IAuthStore.UserInfo>('user/admin-login', params)
-        this.setUserInfo(isPlainObject(result.data.userinfo) ? result.data.userinfo : null)
-        localStorage.setItem(LOCALSTORAGE_KEYS.USER_TOKEN, result.data.token)
-        message.success('登录成功')
+        const result = await request.post<IAuthStore.UserInfo>("user/admin-login", params);
+        this.setUserInfo(isPlainObject(result.data.userinfo) ? result.data.userinfo : null);
+        localStorage.setItem(LOCALSTORAGE_KEYS.USER_TOKEN, result.data.token);
+        message.success("登录成功");
         setTimeout(() => {
-            routerStore.replace('/')
-        }, 500)
+            routerStore.replace("/");
+        }, 500);
     }
 
     logout = () => {
-        this.setUserInfo(null)
-        localStorage.removeItem(LOCALSTORAGE_KEYS.USER_TOKEN)
-        routerStore.replace('/login')
+        this.setUserInfo(null);
+        localStorage.removeItem(LOCALSTORAGE_KEYS.USER_TOKEN);
+        routerStore.replace("/login");
     }
 
     /**
@@ -45,9 +45,9 @@ export class AuthStore {
      */
     @action
     setUserInfo = (userInfo: IAuthStore.UserInfo): IAuthStore.UserInfo => {
-        this.userInfo = userInfo
-        return userInfo
+        this.userInfo = userInfo;
+        return userInfo;
     }
 }
 
-export default new AuthStore()
+export default new AuthStore();

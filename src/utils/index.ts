@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from "lodash";
 
 /**
  * setCookie
@@ -9,9 +9,9 @@ import { cloneDeep } from 'lodash'
  * @param {number} [expiredays=365]
  */
 export function setCookie(name: string, value: string, expiredays = 365) {
-    const exdate = new Date()
-    exdate.setDate(exdate.getDate() + expiredays)
-    document.cookie = `${name}=${escape(value)};expires=${exdate.toUTCString()}`
+    const exdate = new Date();
+    exdate.setDate(exdate.getDate() + expiredays);
+    document.cookie = `${name}=${escape(value)};expires=${exdate.toUTCString()}`;
 }
 
 /**
@@ -23,17 +23,17 @@ export function setCookie(name: string, value: string, expiredays = 365) {
  */
 export function getCookie(name: string) {
     if (document.cookie.length > 0) {
-        let cStart = document.cookie.indexOf(name + '=')
+        let cStart = document.cookie.indexOf(name + "=");
         if (cStart !== -1) {
-            cStart = cStart + name.length + 1
-            let cEnd = document.cookie.indexOf(';', cStart)
+            cStart = cStart + name.length + 1;
+            let cEnd = document.cookie.indexOf(";", cStart);
             if (cEnd === -1) {
-                cEnd = document.cookie.length
+                cEnd = document.cookie.length;
             }
-            return unescape(document.cookie.substring(cStart, cEnd))
+            return unescape(document.cookie.substring(cStart, cEnd));
         }
     }
-    return ''
+    return "";
 }
 
 /**
@@ -43,7 +43,7 @@ export function getCookie(name: string) {
  * @param {string} name
  */
 export function clearCookie(name: string) {
-    setCookie(name, '')
+    setCookie(name, "");
 }
 
 /**
@@ -54,12 +54,12 @@ export function clearCookie(name: string) {
  * @returns {string}
  */
 export function queryURL(name: string): string {
-    const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i')
-    const result = window.location.search.substr(1).match(reg)
+    const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, "i");
+    const result = window.location.search.substr(1).match(reg);
     if (result !== null) {
-        return decodeURI(result[2])
+        return decodeURI(result[2]);
     }
-    return null
+    return null;
 }
 
 /**
@@ -72,15 +72,15 @@ export function queryURL(name: string): string {
  * @param {string} [keyAlias='key']
  * @returns {T}
  */
-export function queryArray<T>(array: any[], key: string, keyAlias = 'key'): T {
+export function queryArray<T>(array: any[], key: string, keyAlias = "key"): T {
     if (!(array instanceof Array)) {
-        return null
+        return null;
     }
-    const item = array.filter(a => a[keyAlias] === key)
+    const item = array.filter(a => a[keyAlias] === key);
     if (item.length) {
-        return item[0]
+        return item[0];
     }
-    return null
+    return null;
 }
 
 /**
@@ -94,23 +94,23 @@ export function queryArray<T>(array: any[], key: string, keyAlias = 'key'): T {
  * @param {string} [children='children']
  * @returns {T[]}
  */
-export function arrayToTree<T>(array: any[], id = 'id', pid = 'pid', children = 'children'): T[] {
-    const data = cloneDeep(array)
-    const result = []
-    const hash = {}
+export function arrayToTree<T>(array: any[], id = "id", pid = "pid", children = "children"): T[] {
+    const data = cloneDeep(array);
+    const result = [];
+    const hash = {};
     data.forEach((_, index) => {
-        hash[data[index][id]] = data[index]
-    })
+        hash[data[index][id]] = data[index];
+    });
     data.forEach(item => {
-        const hashVP = hash[item[pid]]
+        const hashVP = hash[item[pid]];
         if (hashVP) {
             if (!hashVP[children]) {
-                hashVP[children] = []
+                hashVP[children] = [];
             }
-            hashVP[children].push(item)
+            hashVP[children].push(item);
         } else {
-            result.push(item)
+            result.push(item);
         }
-    })
-    return result
+    });
+    return result;
 }

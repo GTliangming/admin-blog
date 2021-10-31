@@ -1,14 +1,14 @@
-import React from 'react'
-import { Button } from 'antd'
+import React from "react";
+import { Button } from "antd";
 
-import styles from './index.scss'
-import UserModal from './../UserModal'
+import styles from "./index.scss";
+import UserModal from "./../UserModal";
 
 function Header() {
-    const [modalVisible, setModalVisible] = React.useState(false)
+    const [modalVisible, setModalVisible] = React.useState(false);
 
     function toggleModalVisible() {
-        setModalVisible(visible => !visible)
+        setModalVisible(visible => !visible);
     }
 
     return (
@@ -18,7 +18,7 @@ function Header() {
             </Button>
             <UserModal visible={modalVisible} onCancel={toggleModalVisible} />
         </div>
-    )
+    );
 }
 
-export default Header
+export default Header;

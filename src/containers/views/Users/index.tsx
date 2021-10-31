@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
-import styles from './index.scss'
-import Header from './Header'
-import UserTable from './UserTable'
-import AutoSizer from '@components/AutoSizer'
+import styles from "./index.scss";
+import Header from "./Header";
+import UserTable from "./UserTable";
+import AutoSizer from "@components/AutoSizer";
 
 export default function Users() {
     return (
@@ -11,5 +11,5 @@ export default function Users() {
             <Header />
             <AutoSizer className={styles.tableBox}>{({ height }) => <UserTable scrollY={height - 120} />}</AutoSizer>
         </div>
-    )
+    );
 }

@@ -1,34 +1,34 @@
-import React from 'react'
-import { Table, Divider, Popconfirm } from 'antd'
-import { observer } from 'mobx-react'
+import React from "react";
+import { Table, Divider, Popconfirm } from "antd";
+import { observer } from "mobx-react";
 
-import styles from './index.scss'
-import { useOnMount } from '@utils/hooks'
-import useRootStore from '@store/useRootStore'
-import UserModal from './UserModal'
+import styles from "./index.scss";
+import { useOnMount } from "@utils/hooks";
+import useRootStore from "@store/useRootStore";
+import UserModal from "./UserModal";
 
 interface IProps {
     scrollY: number
 }
 
 function UserTable({ scrollY }: IProps) {
-    const { userStore } = useRootStore()
+    const { userStore } = useRootStore();
 
-    const [modalVisible, setModalVisible] = React.useState(false)
-    const [currentUser, setCurrentUser] = React.useState<IUserStore.IUser>(null)
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const [currentUser, setCurrentUser] = React.useState<IUserStore.IUser>(null);
 
     function modifyUser(user: IUserStore.IUser) {
-        setCurrentUser(user)
-        setModalVisible(true)
+        setCurrentUser(user);
+        setModalVisible(true);
     }
 
-    useOnMount(userStore.getUsers)
+    useOnMount(userStore.getUsers);
 
     return (
         <React.Fragment>
             <Table<IUserStore.IUser>
                 className="center-table"
-                style={{ width: '100%' }}
+                style={{ width: "100%" }}
                 bordered
                 rowKey="id"
                 loading={userStore.getUsersloading}
@@ -38,7 +38,7 @@ function UserTable({ scrollY }: IProps) {
                     current: userStore.pageIndex,
                     showSizeChanger: true,
                     pageSize: userStore.pageSize,
-                    pageSizeOptions: ['30', '20', '10'],
+                    pageSizeOptions: ["30", "20", "10"],
                     total: userStore.total
                 }}
                 onChange={userStore.handleTableChange}
@@ -69,7 +69,7 @@ function UserTable({ scrollY }: IProps) {
             </Table>
             <UserModal visible={modalVisible} onCancel={() => setModalVisible(false)} user={currentUser} />
         </React.Fragment>
-    )
+    );
 }
 
-export default observer(UserTable)
+export default observer(UserTable);

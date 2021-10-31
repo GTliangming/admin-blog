@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 /**
  * componentDidMount in hook way
@@ -10,9 +10,9 @@ import React from 'react'
 export function useOnMount(onMount: () => any) {
     return React.useEffect(() => {
         if (onMount) {
-            onMount()
+            onMount();
         }
-    }, [])
+    }, []);
 }
 
 /**
@@ -24,6 +24,6 @@ export function useOnMount(onMount: () => any) {
  */
 export function useOnUnmount(onUnmount: () => any) {
     return React.useEffect(() => {
-        return () => onUnmount && onUnmount()
-    }, [])
+        return () => onUnmount && onUnmount();
+    }, []);
 }

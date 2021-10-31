@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-import styles from './index.scss'
+import styles from "./index.scss";
 
 const Error = () => (
     <div className={styles.centered}>
@@ -8,6 +8,6 @@ const Error = () => (
         <p className={styles.title}>Ooooops!</p>
         <p>This page does not exist anymore.</p>
     </div>
-)
+);
 
-export default Error
+export default Error;

@@ -1,42 +1,42 @@
-import { formItemLayout2 } from '@components/fromItemLayout'
-import { Button, Form, Input, message, Modal, Upload, UploadProps } from 'antd'
-import { UploadChangeParam } from 'antd/lib/upload'
-import React from 'react'
-import { InboxOutlined } from '@ant-design/icons'
-const { Dragger } = Upload
-import styles from './index.scss'
-import ActircleStore from '@store/actircleStore'
-import { LOCALSTORAGE_KEYS } from '@constants/index'
+import { formItemLayout2 } from "@components/fromItemLayout";
+import { Button, Form, Input, message, Modal, Upload, UploadProps } from "antd";
+import { UploadChangeParam } from "antd/lib/upload";
+import React from "react";
+import { InboxOutlined } from "@ant-design/icons";
+const { Dragger } = Upload;
+import styles from "./index.scss";
+import ActircleStore from "@store/actircleStore";
+import { LOCALSTORAGE_KEYS } from "@constants/index";
 function Test() {
-    const [ActricleID, setActricleID] = React.useState(null)
-    const [visible, setVisible] = React.useState(false)
-    const [loading, setLoading] = React.useState(false)
+    const [ActricleID, setActricleID] = React.useState(null);
+    const [visible, setVisible] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
     async function onFinish(values: any) {
-        await ActircleStore.addAcricle({ ...values, ActricleID })
+        await ActircleStore.addAcricle({ ...values, ActricleID });
     }
     const uploadProps: UploadProps = {
         action: `${process.env.BASEURL}article/upload-file`,
-        accept: 'md',
+        accept: "md",
         headers: {
             Authorization: `Bearer ${localStorage.getItem(LOCALSTORAGE_KEYS.USER_TOKEN)}`
         },
         onChange: (info: UploadChangeParam) => {
-            const { status, response } = info.file
-            if (status === 'done') {
-                setLoading(false)
+            const { status, response } = info.file;
+            if (status === "done") {
+                setLoading(false);
                 if (response.code === 200) {
-                    setActricleID(response.actricle_id)
+                    setActricleID(response.actricle_id);
                 } else {
-                    message.error(response.message)
+                    message.error(response.message);
                 }
-            } else if (status === 'error') {
-                setLoading(false)
-                message.error(response.message)
-            } else if (status === 'uploading') {
-                setLoading(true)
+            } else if (status === "error") {
+                setLoading(false);
+                message.error(response.message);
+            } else if (status === "uploading") {
+                setLoading(true);
             }
         }
-    }
+    };
     return (
         <div className={styles.box}>
             <div className={styles.top}>
@@ -57,7 +57,7 @@ function Test() {
                         label="文章名称"
                         name="name"
                         {...formItemLayout2}
-                        rules={[{ required: true, message: '请输入文章名称' }]}
+                        rules={[{ required: true, message: "请输入文章名称" }]}
                     >
                         <Input />
                     </Form.Item>
@@ -65,7 +65,7 @@ function Test() {
                         label="文章标题"
                         name="title"
                         {...formItemLayout2}
-                        rules={[{ required: true, message: '请输入文章标题' }]}
+                        rules={[{ required: true, message: "请输入文章标题" }]}
                     >
                         <Input />
                     </Form.Item>
@@ -88,7 +88,7 @@ function Test() {
                     <Form.Item
                         label="文章内容"
                         {...formItemLayout2}
-                        rules={[{ required: true, message: '请上传文件' }]}
+                        rules={[{ required: true, message: "请上传文件" }]}
                     >
                         <Dragger {...uploadProps}>
                             <p className="ant-upload-drag-icon">
@@ -105,6 +105,6 @@ function Test() {
                 </Form>
             </Modal>
         </div>
-    )
+    );
 }
-export default Test
+export default Test;

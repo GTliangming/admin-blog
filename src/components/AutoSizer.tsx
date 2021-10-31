@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 interface Size {
     width: number
@@ -23,46 +23,46 @@ class AutoSizer extends React.Component<IP, IS> {
     private timer: NodeJS.Timer = null
 
     listenResize = () => {
-        clearTimeout(this.timer)
+        clearTimeout(this.timer);
         this.timer = setTimeout(() => {
-            this.setSize()
-        }, 100)
+            this.setSize();
+        }, 100);
     }
 
     setSize = () => {
         if (this.containerRef) {
-            const { clientHeight, clientWidth } = this.containerRef
-            this.setState({ height: clientHeight, width: clientWidth })
+            const { clientHeight, clientWidth } = this.containerRef;
+            this.setState({ height: clientHeight, width: clientWidth });
         }
     }
 
     setRef = (ref: HTMLDivElement) => {
-        this.containerRef = ref
-        this.setSize()
+        this.containerRef = ref;
+        this.setSize();
     }
 
-    bindOrUnbindResize = (type: 'bind' | 'unbind') => {
-        const listener = type === 'bind' ? window.addEventListener : window.removeEventListener
-        listener('resize', this.listenResize, false)
+    bindOrUnbindResize = (type: "bind" | "unbind") => {
+        const listener = type === "bind" ? window.addEventListener : window.removeEventListener;
+        listener("resize", this.listenResize, false);
     }
 
     componentDidMount() {
-        this.bindOrUnbindResize('bind')
+        this.bindOrUnbindResize("bind");
     }
 
     componentWillUnmount() {
-        this.bindOrUnbindResize('unbind')
+        this.bindOrUnbindResize("unbind");
     }
 
     render() {
-        const { className, style, children } = this.props
-        const { width, height } = this.state
+        const { className, style, children } = this.props;
+        const { width, height } = this.state;
         return (
             <div className={className} style={style} ref={this.setRef}>
                 {children({ width, height })}
             </div>
-        )
+        );
     }
 }
 
-export default AutoSizer
+export default AutoSizer;

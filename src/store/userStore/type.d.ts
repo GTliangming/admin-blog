@@ -1,4 +1,4 @@
-import { UserStore as UserStoreModel } from './index'
+import { UserStore as UserStoreModel } from "./index";
 
 export as namespace IUserStore
 

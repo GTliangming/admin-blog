@@ -1,25 +1,25 @@
-import React from 'react'
-import loadable from '@loadable/component'
-import { HashRouter, Router, Switch, Route } from 'react-router-dom'
-import { createHashHistory } from 'history'
-import { syncHistoryWithStore } from '@superwf/mobx-react-router'
+import React from "react";
+import loadable from "@loadable/component";
+import { HashRouter, Router, Switch, Route } from "react-router-dom";
+import { createHashHistory } from "history";
+import { syncHistoryWithStore } from "@superwf/mobx-react-router";
 
-import styles from './index.scss'
-import * as store from '@store/index'
-import PageLoading from '@components/PageLoading'
-import Error from '@components/Error'
-import Provider from './Provider'
-import IntlWrapper from './IntlWrapper'
+import styles from "./index.scss";
+import * as store from "@store/index";
+import PageLoading from "@components/PageLoading";
+import Error from "@components/Error";
+import Provider from "./Provider";
+import IntlWrapper from "./IntlWrapper";
 
-const hashHistory = createHashHistory()
-const history = syncHistoryWithStore(hashHistory, store.routerStore)
+const hashHistory = createHashHistory();
+const history = syncHistoryWithStore(hashHistory, store.routerStore);
 
-const loadableOptions = { fallback: <PageLoading /> }
-const Home = loadable(() => import(/* webpackChunkName: "home" */ '@views/Home'), loadableOptions)
-const Login = loadable(() => import(/* webpackChunkName: "login" */ '@views/Login'), loadableOptions)
-const Test = loadable(() => import(/* webpackChunkName: "login" */ '@views/Test'), loadableOptions)
+const loadableOptions = { fallback: <PageLoading /> };
+const Home = loadable(() => import(/* webpackChunkName: "home" */ "@views/Home"), loadableOptions);
+const Login = loadable(() => import(/* webpackChunkName: "login" */ "@views/Login"), loadableOptions);
+const Test = loadable(() => import(/* webpackChunkName: "login" */ "@views/Test"), loadableOptions);
 
-const AppWrapper: React.FC = ({ children }) => <div className={styles.appWrapper}>{children}</div>
+const AppWrapper: React.FC = ({ children }) => <div className={styles.appWrapper}>{children}</div>;
 
 function App() {
     return (
@@ -39,7 +39,7 @@ function App() {
                 </AppWrapper>
             </IntlWrapper>
         </Provider>
-    )
+    );
 }
 
-export default App
+export default App;

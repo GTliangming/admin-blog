@@ -7,7 +7,7 @@
         "prepare": "husky install",
         "add": "add-component",
         "lint-staged": "lint-staged",
-        "lint": "eslint src --ext .ts,.tsx && stylelint \"./src/**/*.scss\"",
+        "lint": "eslint --fix src --ext .ts,.tsx && stylelint \"./src/**/*.scss\"",
         "dev": "cross-env NODE_ENV=development APP_ENV=dev webpack serve --config build/webpack.config.js",
         "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.js",
         "build:prod": "cross-env APP_ENV=prod npm run build"

@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
-import { observer } from 'mobx-react'
-import { Modal, Form, Input, Select } from 'antd'
+import React, { useEffect } from "react";
+import { observer } from "mobx-react";
+import { Modal, Form, Input, Select } from "antd";
 
-import useRootStore from '@store/useRootStore'
+import useRootStore from "@store/useRootStore";
 
-const FormItem = Form.Item
+const FormItem = Form.Item;
 
 const formItemLayout = {
     labelCol: {
@@ -15,9 +15,9 @@ const formItemLayout = {
         xs: { span: 24 },
         sm: { span: 19 }
     }
-}
+};
 
-const userCategory = ['user', 'admin']
+const userCategory = ["user", "admin"];
 
 interface IProps {
     visible: boolean
@@ -26,44 +26,44 @@ interface IProps {
 }
 
 function UserModal({ visible, onCancel, user }: IProps) {
-    const { userStore } = useRootStore()
-    const [form] = Form.useForm()
+    const { userStore } = useRootStore();
+    const [form] = Form.useForm();
 
-    const [loading, setLoading] = React.useState(false)
+    const [loading, setLoading] = React.useState(false);
 
-    const typeIsAdd = user === undefined
+    const typeIsAdd = user === undefined;
 
     function toggleLoading() {
-        setLoading(l => !l)
+        setLoading(l => !l);
     }
 
     async function submit(values: IUserStore.IUser) {
-        toggleLoading()
+        toggleLoading();
         try {
             if (typeIsAdd) {
-                await userStore.createUser(values)
+                await userStore.createUser(values);
             } else {
-                await userStore.modifyUser({ ...values, id: user.id })
+                await userStore.modifyUser({ ...values, id: user.id });
             }
-            onCancel()
+            onCancel();
         } finally {
-            toggleLoading()
+            toggleLoading();
         }
     }
 
     useEffect(() => {
         if (visible) {
             form.setFieldsValue({
-                account: user ? user.account : '',
+                account: user ? user.account : "",
                 category: user ? user.category : userCategory[0],
                 password: null
-            })
+            });
         }
-    }, [visible])
+    }, [visible]);
 
     return (
         <Modal
-            title={typeIsAdd ? 'Add User' : 'Modify User'}
+            title={typeIsAdd ? "Add User" : "Modify User"}
             visible={visible}
             onOk={form.submit}
             onCancel={onCancel}
@@ -90,7 +90,7 @@ function UserModal({ visible, onCancel, user }: IProps) {
                 </FormItem>
             </Form>
         </Modal>
-    )
+    );
 }
 
-export default observer(UserModal)
+export default observer(UserModal);
