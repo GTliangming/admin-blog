@@ -1,8 +1,7 @@
-
-
-
 declare const styles: {
-    readonly "container": string;
+  readonly "box": string;
+  readonly "testarea": string;
+  readonly "top": string;
 };
 export = styles;
 

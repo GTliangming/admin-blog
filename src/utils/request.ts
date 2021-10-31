@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { userInfo } from '@store/authStore/syncUserInfo'
 import { message } from 'antd'
 import { LOCALSTORAGE_KEYS } from '@constants/index'
 const TIMEOUT = 2 * 60000
@@ -15,9 +14,8 @@ const NO_NEED_AUTH_URLS = ['user/admin-login']
 function getAxiosInstance() {
     const instance = axios.create(DEFAULTCONFIG)
     instance.interceptors.request.use(config => {
-        if (!NO_NEED_AUTH_URLS.includes(config.url) && userInfo?.token) {
-            localStorage.getItem(LOCALSTORAGE_KEYS.USER_TOKEN)
-            config.headers['Authorization'] = `Bearer ${userInfo.token}`
+        if (!NO_NEED_AUTH_URLS.includes(config.url)) {
+            config.headers['Authorization'] = `Bearer ${localStorage.getItem(LOCALSTORAGE_KEYS.USER_TOKEN)}`
         }
         return config
     })
@@ -30,6 +28,7 @@ function getAxiosInstance() {
             return response.data
         },
         function (error) {
+            message.error(error.message)
             return Promise.reject(error)
         }
     )
