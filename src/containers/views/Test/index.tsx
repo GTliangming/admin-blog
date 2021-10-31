@@ -1,5 +1,5 @@
 import { formItemLayout2 } from '@components/fromItemLayout'
-import { Button, Col, Form, Input, message, Modal, Row, Upload, UploadProps } from 'antd'
+import { Button, Form, Input, message, Modal, Upload, UploadProps } from 'antd'
 import { UploadChangeParam } from 'antd/lib/upload'
 import React from 'react'
 import { InboxOutlined } from '@ant-design/icons'
