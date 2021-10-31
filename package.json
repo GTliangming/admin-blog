@@ -23,6 +23,7 @@
     "author": "liangming",
     "license": "MIT",
     "dependencies": {
+        "@bamboos/eslint-config": "^1.0.1",
         "@loadable/component": "5.15.0",
         "@superwf/mobx-react-router": "6.0.0",
         "antd": "4.16.9",

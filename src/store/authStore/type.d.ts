@@ -1,4 +1,4 @@
-import { AuthStore as AuthStoreModel } from './index'
+import { AuthStore as AuthStoreModel } from './index';
 
 export as namespace IAuthStore
 
